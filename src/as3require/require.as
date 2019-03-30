@@ -4,7 +4,6 @@ package as3require
 	 * Loads an external SWC at the specified paths, in order.
 	 * If any error occurs while loading a specified file, then the responder's error handling takes place.
 	 * If the responder has its abortOnError set to true, then all subsequent paths are ignored and an error raised.
-	 * Otherwise, loading will continue, and any errors can be retrieved from require_errors()
 	 * @param	responder
 	 * @param	...paths
 	 */
