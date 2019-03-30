@@ -46,4 +46,4 @@ package
 * You **will** need to create a separate document class which loads all the SWCs first and adds the actual main class as a child after all loading has occurred.
 * This is because VerifyErrors may occur if Flash so much as _sees_ an import statement for a library class it hasn't loaded yet.
   * As a result, if you've tried all the above - creating a preloader, etc. - and VerifyErrors still appear regardless of _when_ the main class is loaded - it's probably not going to work for that project.
-* Also, while debugging, if it says "Program not responding", try shaking the screen. This usually only happens in debug mode, although it may also happen if the window is initially invisible in Release mode.
+* Also, while debugging, if it says "Program not responding", try shaking the application window. This usually only happens in debug mode, although it may also happen if the window is initially invisible in Release mode.
