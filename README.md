@@ -43,8 +43,8 @@ package
 ```
 
 ## Caveats
-* This may or may not work on your project. 
-* No explicit guarantees: a smallish AIR app with a few SWCs worked OK, but a larger one with 6+ SWCs did not.
+* This does not work for native extensions. Only SWCs can be loaded via this method.
+* (Update: as3require seems to work on most projects; earlier info was incorrect, and was a result of the project being set up improperly instead of an issue with the library)
 * You **will** need to create a separate document class which loads all the SWCs first and adds the actual main class as a child after all loading has occurred.
 * This is because VerifyErrors may occur if Flash so much as _sees_ an import statement for a library class it hasn't loaded yet.
 * Some SWCs may not be parsed properly even if they're valid archives. If this happens, unpack and repack it again with a different compression algorithm; if you don't mind space, `Store` works almost all the time.
