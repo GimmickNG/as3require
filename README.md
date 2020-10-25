@@ -43,12 +43,11 @@ package
 ```
 
 ## Caveats
-* This does not work for native extensions. Only SWCs can be loaded via this method.
-* (Update: as3require seems to work on most projects; earlier info was incorrect, and was a result of the project being set up improperly instead of an issue with the library)
-* You **will** need to create a separate document class which loads all the SWCs first and adds the actual main class as a child after all loading has occurred.
-* This is because VerifyErrors may occur if Flash so much as _sees_ an import statement for a library class it hasn't loaded yet.
-* Some SWCs may not be parsed properly even if they're valid archives. If this happens, unpack and repack it again with a different compression algorithm; if you don't mind space, `Store` works almost all the time.
-* If you've tried all the above - creating a preloader, etc. - and VerifyErrors still appear regardless of _when_ the main class is loaded - it's probably not going to work for that project.
-* Also, while debugging, if it says "Program not responding", try shaking the application window. This usually only happens in debug mode, although it may also happen if the window is initially invisible in Release mode.
-* **IMPORTANT** Load order matters in release mode - `require` will completely fail if the first SWC loaded does not have a Main symbol - that is, if in SWC Explorer (in FlashDevelop) there's no Symbol like `_<long random sequence>_flash_display_Sprite` then it's neither going to show a success message nor a failure message. This probably has something to do with the `ApplicationDomain` being used; a workaround is to load a normal SWC with such a symbol, and _then_ load the required SWC. 
-  * If you're using the FlashDevelop `swcbuild` extension to create SWCs, then they won't have such symbols included, and so won't work if those are loaded first.
+* **This does not work for native extensions.** Only SWCs can be loaded via this method.
+* You **will** need to create a separate document class which loads all the SWCs first, and add the actual main class as a child after all loading has occurred.
+  * This is because VerifyErrors may occur if Flash so much as _sees_ an import statement for a library class it hasn't loaded yet.
+* Unpack and repack an SWC with `store` compression if it fails to load.
+* If you've tried all the above - creating a preloader, repacking SWCs, etc. - and VerifyErrors still appear regardless of _when_ the main class is loaded - it's probably not going to work for that project.
+* Also, while debugging (on Windows; it is unknown if this occurs on other operating systems) if the application stops responding, try shaking its window. This usually only happens in debug mode, although it may also happen if the window is initially invisible in Release mode.
+* **Load order matters in release mode** - `require` will completely fail if the first SWC loaded does not have a Main symbol - that is, if in SWC Explorer (in FlashDevelop) there's no Symbol like `_<long random sequence>_flash_display_Sprite` then it's going to show neither a success nor a failure message. This probably has something to do with the `ApplicationDomain` being used; a workaround is to load a normal SWC with such a symbol (SWCs compiled with Flash CC usually work) and load the required SWCs after that. 
+  * SWCs created with the FlashDevelop `swcbuild` extension do not have such symbols included, and so need to be loaded last.
